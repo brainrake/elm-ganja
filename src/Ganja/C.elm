@@ -21,7 +21,7 @@ Generated with ganja.js written by enki.
 @docs norm, inorm, normalized
 -}
 
-{-| Basis type |-}
+{-| Basis type -}
 type CBasis =
     Scalar
     | E1
@@ -33,13 +33,13 @@ basisList =
     [ Scalar, E1 ]
 
 
-{-| Number of coefficients |-}
+{-| Number of coefficients -}
 basisCount : Int
 basisCount = 
     2
 
 
-{-| Basis name |-}
+{-| Basis name -}
 basisName : CBasis -> String
 basisName basis =
     case basis of
@@ -50,18 +50,18 @@ basisName basis =
             "e1"
 
 
-{-| Multivector |-}
+{-| Multivector -}
 type C =
     C Float Float
 
 
-{-| Zero value |-}
+{-| Zero value -}
 zero : C
 zero =
     C 0 0
 
 
-{-| Get coefficient |-}
+{-| Get coefficient -}
 get : CBasis -> C -> Float
 get basis (C v0 v1) =
     case basis of
@@ -72,7 +72,7 @@ get basis (C v0 v1) =
             v1
 
 
-{-| Update coefficient |-}
+{-| Update coefficient -}
 set : CBasis -> Float -> C -> C
 set basis value (C v0 v1) =
     case basis of
@@ -83,13 +83,13 @@ set basis value (C v0 v1) =
             C v0 value
 
 
-{-| Multivector with one coefficient |-}
+{-| Multivector with one coefficient -}
 new : Float -> CBasis -> C
 new value basis =
     set basis value zero
 
 
-{-| Convert multivector to string |-}
+{-| Convert multivector to string -}
 toString : C -> String
 toString a =
     let 
@@ -108,7 +108,7 @@ toString a =
             |> (\s -> if s == "" then "0" else s)    
 
 
-{-| Convert list of coefficients to multivector |-}
+{-| Convert list of coefficients to multivector -}
 fromList : List Float -> Maybe C
 fromList list =
     case ( List.head <| List.drop 0 list , ( List.head <| List.drop 1 list )) of
@@ -119,14 +119,14 @@ fromList list =
             Nothing
 
 
-{-| Convert multivector to list of coefficients |-}
+{-| Convert multivector to list of coefficients -}
 toList : C -> List Float
 toList (C v0 v1) =
     [ v0, v1 ]
 
 
 
-{-| Reverse the order of the basis blades. |-}
+{-| Reverse the order of the basis blades. -}
 reverse : C -> C
 reverse (C a0 a1) =
     C
@@ -134,7 +134,7 @@ reverse (C a0 a1) =
         (a1)
 
 
-{-| Poincare duality operator. |-}
+{-| Poincare duality operator. -}
 dual : C -> C
 dual (C a0 a1) =
     C
@@ -142,7 +142,7 @@ dual (C a0 a1) =
         (a0)
 
 
-{-| Clifford Conjugation |-}
+{-| Clifford Conjugation -}
 conjugate : C -> C
 conjugate (C a0 a1) =
     C
@@ -150,7 +150,7 @@ conjugate (C a0 a1) =
         (-a1)
 
 
-{-| Main involution |-}
+{-| Main involution -}
 involute : C -> C
 involute (C a0 a1) =
     C
@@ -158,7 +158,7 @@ involute (C a0 a1) =
         (-a1)
 
 
-{-| The geometric product. |-}
+{-| The geometric product. -}
 mul : C -> C -> C
 mul (C a0 a1) (C b0 b1) =
     C
@@ -166,7 +166,7 @@ mul (C a0 a1) (C b0 b1) =
         (b1 * a0 + b0 * a1)
 
 
-{-| The outer product. (MEET) |-}
+{-| The outer product. (MEET) -}
 wedge : C -> C -> C
 wedge (C a0 a1) (C b0 b1) =
     C
@@ -174,7 +174,7 @@ wedge (C a0 a1) (C b0 b1) =
         (b1 * a0 + b0 * a1)
 
 
-{-| The regressive product. (JOIN) |-}
+{-| The regressive product. (JOIN) -}
 vee : C -> C -> C
 vee (C a0 a1) (C b0 b1) =
     C
@@ -182,7 +182,7 @@ vee (C a0 a1) (C b0 b1) =
         (1 * (a0 * b1 + a1 * b0))
 
 
-{-| The inner product. |-}
+{-| The inner product. -}
 dot : C -> C -> C
 dot (C a0 a1) (C b0 b1) =
     C
@@ -190,7 +190,7 @@ dot (C a0 a1) (C b0 b1) =
         (b1 * a0 + b0 * a1)
 
 
-{-| Multivector addition |-}
+{-| Multivector addition -}
 add : C -> C -> C
 add (C a0 a1) (C b0 b1) =
     C
@@ -198,7 +198,7 @@ add (C a0 a1) (C b0 b1) =
         (a1 + b1)
 
 
-{-| Multivector subtraction |-}
+{-| Multivector subtraction -}
 sub : C -> C -> C
 sub (C a0 a1) (C b0 b1) =
     C
@@ -206,7 +206,7 @@ sub (C a0 a1) (C b0 b1) =
         (a1 - b1)
 
 
-{-| scalar/multivector multiplication |-}
+{-| scalar/multivector multiplication -}
 smul : Float -> C -> C
 smul a (C b0 b1) =
     C
@@ -214,7 +214,7 @@ smul a (C b0 b1) =
         (a * b1)
 
 
-{-| multivector/scalar multiplication |-}
+{-| multivector/scalar multiplication -}
 muls : C -> Float -> C
 muls (C a0 a1) b =
     C
@@ -222,7 +222,7 @@ muls (C a0 a1) b =
         (a1 * b)
 
 
-{-| scalar/multivector addition |-}
+{-| scalar/multivector addition -}
 sadd : Float -> C -> C
 sadd a (C b0 b1) =
     C
@@ -230,7 +230,7 @@ sadd a (C b0 b1) =
         (b1)
 
 
-{-| multivector/scalar addition |-}
+{-| multivector/scalar addition -}
 adds : C -> Float -> C
 adds (C a0 a1) b =
     C
@@ -238,7 +238,7 @@ adds (C a0 a1) b =
         (a1)
 
 
-{-| scalar/multivector subtraction |-}
+{-| scalar/multivector subtraction -}
 ssub : Float -> C -> C
 ssub a (C b0 b1) =
     C
@@ -246,7 +246,7 @@ ssub a (C b0 b1) =
         (-b1)
 
 
-{-| multivector/scalar subtraction |-}
+{-| multivector/scalar subtraction -}
 subs : C -> Float -> C
 subs (C a0 a1) b =
     C
@@ -254,31 +254,31 @@ subs (C a0 a1) b =
         (a1)
 
 
-{-| Norm |-}
+{-| Norm -}
 norm : C -> Float
 norm a =
     sqrt <| abs <| get Scalar <| mul a <| conjugate a
 
 
-{-| Norm of dual |-}
+{-| Norm of dual -}
 inorm : C -> Float
 inorm a =
     norm (dual a)
 
 
-{-| Normalized multivector |-}
+{-| Normalized multivector -}
 normalized : C -> C
 normalized a =
     muls a (1 / norm a)
 
 
-{-| Basis multivector |-}
+{-| Basis multivector -}
 scalar : C
 scalar =
     set Scalar 1 zero
 
 
-{-| Basis multivector |-}
+{-| Basis multivector -}
 e1 : C
 e1 =
     set E1 1 zero

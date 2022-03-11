@@ -21,7 +21,7 @@ Generated with ganja.js written by enki.
 @docs norm, inorm, normalized
 -}
 
-{-| Basis type |-}
+{-| Basis type -}
 type Pga3dBasis =
     Scalar
     | E0
@@ -47,13 +47,13 @@ basisList =
     [ Scalar, E0, E1, E2, E3, E01, E02, E03, E12, E31, E23, E021, E013, E032, E123, E0123 ]
 
 
-{-| Number of coefficients |-}
+{-| Number of coefficients -}
 basisCount : Int
 basisCount = 
     16
 
 
-{-| Basis name |-}
+{-| Basis name -}
 basisName : Pga3dBasis -> String
 basisName basis =
     case basis of
@@ -106,18 +106,18 @@ basisName basis =
             "e0123"
 
 
-{-| Multivector |-}
+{-| Multivector -}
 type Pga3d =
     Pga3d Float Float Float Float Float Float Float Float Float Float Float Float Float Float Float Float
 
 
-{-| Zero value |-}
+{-| Zero value -}
 zero : Pga3d
 zero =
     Pga3d 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 
 
-{-| Get coefficient |-}
+{-| Get coefficient -}
 get : Pga3dBasis -> Pga3d -> Float
 get basis (Pga3d v0 v1 v2 v3 v4 v5 v6 v7 v8 v9 v10 v11 v12 v13 v14 v15) =
     case basis of
@@ -170,7 +170,7 @@ get basis (Pga3d v0 v1 v2 v3 v4 v5 v6 v7 v8 v9 v10 v11 v12 v13 v14 v15) =
             v15
 
 
-{-| Update coefficient |-}
+{-| Update coefficient -}
 set : Pga3dBasis -> Float -> Pga3d -> Pga3d
 set basis value (Pga3d v0 v1 v2 v3 v4 v5 v6 v7 v8 v9 v10 v11 v12 v13 v14 v15) =
     case basis of
@@ -223,13 +223,13 @@ set basis value (Pga3d v0 v1 v2 v3 v4 v5 v6 v7 v8 v9 v10 v11 v12 v13 v14 v15) =
             Pga3d v0 v1 v2 v3 v4 v5 v6 v7 v8 v9 v10 v11 v12 v13 v14 value
 
 
-{-| Multivector with one coefficient |-}
+{-| Multivector with one coefficient -}
 new : Float -> Pga3dBasis -> Pga3d
 new value basis =
     set basis value zero
 
 
-{-| Convert multivector to string |-}
+{-| Convert multivector to string -}
 toString : Pga3d -> String
 toString a =
     let 
@@ -248,7 +248,7 @@ toString a =
             |> (\s -> if s == "" then "0" else s)    
 
 
-{-| Convert list of coefficients to multivector |-}
+{-| Convert list of coefficients to multivector -}
 fromList : List Float -> Maybe Pga3d
 fromList list =
     case ( List.head <| List.drop 0 list , ( List.head <| List.drop 1 list , ( List.head <| List.drop 2 list , ( List.head <| List.drop 3 list , ( List.head <| List.drop 4 list , ( List.head <| List.drop 5 list , ( List.head <| List.drop 6 list , ( List.head <| List.drop 7 list , ( List.head <| List.drop 8 list , ( List.head <| List.drop 9 list , ( List.head <| List.drop 10 list , ( List.head <| List.drop 11 list , ( List.head <| List.drop 12 list , ( List.head <| List.drop 13 list , ( List.head <| List.drop 14 list , ( List.head <| List.drop 15 list )))))))))))))))) of
@@ -259,14 +259,14 @@ fromList list =
             Nothing
 
 
-{-| Convert multivector to list of coefficients |-}
+{-| Convert multivector to list of coefficients -}
 toList : Pga3d -> List Float
 toList (Pga3d v0 v1 v2 v3 v4 v5 v6 v7 v8 v9 v10 v11 v12 v13 v14 v15) =
     [ v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15 ]
 
 
 
-{-| Reverse the order of the basis blades. |-}
+{-| Reverse the order of the basis blades. -}
 reverse : Pga3d -> Pga3d
 reverse (Pga3d a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13 a14 a15) =
     Pga3d
@@ -288,7 +288,7 @@ reverse (Pga3d a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13 a14 a15) =
         (a15)
 
 
-{-| Poincare duality operator. |-}
+{-| Poincare duality operator. -}
 dual : Pga3d -> Pga3d
 dual (Pga3d a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13 a14 a15) =
     Pga3d
@@ -310,7 +310,7 @@ dual (Pga3d a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13 a14 a15) =
         (a0)
 
 
-{-| Clifford Conjugation |-}
+{-| Clifford Conjugation -}
 conjugate : Pga3d -> Pga3d
 conjugate (Pga3d a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13 a14 a15) =
     Pga3d
@@ -332,7 +332,7 @@ conjugate (Pga3d a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13 a14 a15) =
         (a15)
 
 
-{-| Main involution |-}
+{-| Main involution -}
 involute : Pga3d -> Pga3d
 involute (Pga3d a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13 a14 a15) =
     Pga3d
@@ -354,7 +354,7 @@ involute (Pga3d a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13 a14 a15) =
         (a15)
 
 
-{-| The geometric product. |-}
+{-| The geometric product. -}
 mul : Pga3d -> Pga3d -> Pga3d
 mul (Pga3d a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13 a14 a15) (Pga3d b0 b1 b2 b3 b4 b5 b6 b7 b8 b9 b10 b11 b12 b13 b14 b15) =
     Pga3d
@@ -376,7 +376,7 @@ mul (Pga3d a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13 a14 a15) (Pga3d b0 b1 b
         (b15 * a0 + b14 * a1 + b13 * a2 + b12 * a3 + b11 * a4 + b10 * a5 + b9 * a6 + b8 * a7 + b7 * a8 + b6 * a9 + b5 * a10 - b4 * a11 - b3 * a12 - b2 * a13 - b1 * a14 + b0 * a15)
 
 
-{-| The outer product. (MEET) |-}
+{-| The outer product. (MEET) -}
 wedge : Pga3d -> Pga3d -> Pga3d
 wedge (Pga3d a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13 a14 a15) (Pga3d b0 b1 b2 b3 b4 b5 b6 b7 b8 b9 b10 b11 b12 b13 b14 b15) =
     Pga3d
@@ -398,7 +398,7 @@ wedge (Pga3d a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13 a14 a15) (Pga3d b0 b1
         (b15 * a0 + b14 * a1 + b13 * a2 + b12 * a3 + b11 * a4 + b10 * a5 + b9 * a6 + b8 * a7 + b7 * a8 + b6 * a9 + b5 * a10 - b4 * a11 - b3 * a12 - b2 * a13 - b1 * a14 + b0 * a15)
 
 
-{-| The regressive product. (JOIN) |-}
+{-| The regressive product. (JOIN) -}
 vee : Pga3d -> Pga3d -> Pga3d
 vee (Pga3d a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13 a14 a15) (Pga3d b0 b1 b2 b3 b4 b5 b6 b7 b8 b9 b10 b11 b12 b13 b14 b15) =
     Pga3d
@@ -420,7 +420,7 @@ vee (Pga3d a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13 a14 a15) (Pga3d b0 b1 b
         (1 * (a0 * b15 + a1 * b14 * -1 + a2 * b13 * -1 + a3 * b12 * -1 + a4 * b11 * -1 + a5 * b10 + a6 * b9 + a7 * b8 + a8 * b7 + a9 * b6 + a10 * b5 - a11 * -1 * b4 - a12 * -1 * b3 - a13 * -1 * b2 - a14 * -1 * b1 + a15 * b0))
 
 
-{-| The inner product. |-}
+{-| The inner product. -}
 dot : Pga3d -> Pga3d -> Pga3d
 dot (Pga3d a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13 a14 a15) (Pga3d b0 b1 b2 b3 b4 b5 b6 b7 b8 b9 b10 b11 b12 b13 b14 b15) =
     Pga3d
@@ -442,7 +442,7 @@ dot (Pga3d a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13 a14 a15) (Pga3d b0 b1 b
         (b15 * a0 + b0 * a15)
 
 
-{-| Multivector addition |-}
+{-| Multivector addition -}
 add : Pga3d -> Pga3d -> Pga3d
 add (Pga3d a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13 a14 a15) (Pga3d b0 b1 b2 b3 b4 b5 b6 b7 b8 b9 b10 b11 b12 b13 b14 b15) =
     Pga3d
@@ -464,7 +464,7 @@ add (Pga3d a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13 a14 a15) (Pga3d b0 b1 b
         (a15 + b15)
 
 
-{-| Multivector subtraction |-}
+{-| Multivector subtraction -}
 sub : Pga3d -> Pga3d -> Pga3d
 sub (Pga3d a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13 a14 a15) (Pga3d b0 b1 b2 b3 b4 b5 b6 b7 b8 b9 b10 b11 b12 b13 b14 b15) =
     Pga3d
@@ -486,7 +486,7 @@ sub (Pga3d a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13 a14 a15) (Pga3d b0 b1 b
         (a15 - b15)
 
 
-{-| scalar/multivector multiplication |-}
+{-| scalar/multivector multiplication -}
 smul : Float -> Pga3d -> Pga3d
 smul a (Pga3d b0 b1 b2 b3 b4 b5 b6 b7 b8 b9 b10 b11 b12 b13 b14 b15) =
     Pga3d
@@ -508,7 +508,7 @@ smul a (Pga3d b0 b1 b2 b3 b4 b5 b6 b7 b8 b9 b10 b11 b12 b13 b14 b15) =
         (a * b15)
 
 
-{-| multivector/scalar multiplication |-}
+{-| multivector/scalar multiplication -}
 muls : Pga3d -> Float -> Pga3d
 muls (Pga3d a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13 a14 a15) b =
     Pga3d
@@ -530,7 +530,7 @@ muls (Pga3d a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13 a14 a15) b =
         (a15 * b)
 
 
-{-| scalar/multivector addition |-}
+{-| scalar/multivector addition -}
 sadd : Float -> Pga3d -> Pga3d
 sadd a (Pga3d b0 b1 b2 b3 b4 b5 b6 b7 b8 b9 b10 b11 b12 b13 b14 b15) =
     Pga3d
@@ -552,7 +552,7 @@ sadd a (Pga3d b0 b1 b2 b3 b4 b5 b6 b7 b8 b9 b10 b11 b12 b13 b14 b15) =
         (b15)
 
 
-{-| multivector/scalar addition |-}
+{-| multivector/scalar addition -}
 adds : Pga3d -> Float -> Pga3d
 adds (Pga3d a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13 a14 a15) b =
     Pga3d
@@ -574,7 +574,7 @@ adds (Pga3d a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13 a14 a15) b =
         (a15)
 
 
-{-| scalar/multivector subtraction |-}
+{-| scalar/multivector subtraction -}
 ssub : Float -> Pga3d -> Pga3d
 ssub a (Pga3d b0 b1 b2 b3 b4 b5 b6 b7 b8 b9 b10 b11 b12 b13 b14 b15) =
     Pga3d
@@ -596,7 +596,7 @@ ssub a (Pga3d b0 b1 b2 b3 b4 b5 b6 b7 b8 b9 b10 b11 b12 b13 b14 b15) =
         (-b15)
 
 
-{-| multivector/scalar subtraction |-}
+{-| multivector/scalar subtraction -}
 subs : Pga3d -> Float -> Pga3d
 subs (Pga3d a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13 a14 a15) b =
     Pga3d
@@ -618,115 +618,115 @@ subs (Pga3d a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13 a14 a15) b =
         (a15)
 
 
-{-| Norm |-}
+{-| Norm -}
 norm : Pga3d -> Float
 norm a =
     sqrt <| abs <| get Scalar <| mul a <| conjugate a
 
 
-{-| Norm of dual |-}
+{-| Norm of dual -}
 inorm : Pga3d -> Float
 inorm a =
     norm (dual a)
 
 
-{-| Normalized multivector |-}
+{-| Normalized multivector -}
 normalized : Pga3d -> Pga3d
 normalized a =
     muls a (1 / norm a)
 
 
-{-| Basis multivector |-}
+{-| Basis multivector -}
 scalar : Pga3d
 scalar =
     set Scalar 1 zero
 
 
-{-| Basis multivector |-}
+{-| Basis multivector -}
 e0 : Pga3d
 e0 =
     set E0 1 zero
 
 
-{-| Basis multivector |-}
+{-| Basis multivector -}
 e1 : Pga3d
 e1 =
     set E1 1 zero
 
 
-{-| Basis multivector |-}
+{-| Basis multivector -}
 e2 : Pga3d
 e2 =
     set E2 1 zero
 
 
-{-| Basis multivector |-}
+{-| Basis multivector -}
 e3 : Pga3d
 e3 =
     set E3 1 zero
 
 
-{-| Basis multivector |-}
+{-| Basis multivector -}
 e01 : Pga3d
 e01 =
     set E01 1 zero
 
 
-{-| Basis multivector |-}
+{-| Basis multivector -}
 e02 : Pga3d
 e02 =
     set E02 1 zero
 
 
-{-| Basis multivector |-}
+{-| Basis multivector -}
 e03 : Pga3d
 e03 =
     set E03 1 zero
 
 
-{-| Basis multivector |-}
+{-| Basis multivector -}
 e12 : Pga3d
 e12 =
     set E12 1 zero
 
 
-{-| Basis multivector |-}
+{-| Basis multivector -}
 e31 : Pga3d
 e31 =
     set E31 1 zero
 
 
-{-| Basis multivector |-}
+{-| Basis multivector -}
 e23 : Pga3d
 e23 =
     set E23 1 zero
 
 
-{-| Basis multivector |-}
+{-| Basis multivector -}
 e021 : Pga3d
 e021 =
     set E021 1 zero
 
 
-{-| Basis multivector |-}
+{-| Basis multivector -}
 e013 : Pga3d
 e013 =
     set E013 1 zero
 
 
-{-| Basis multivector |-}
+{-| Basis multivector -}
 e032 : Pga3d
 e032 =
     set E032 1 zero
 
 
-{-| Basis multivector |-}
+{-| Basis multivector -}
 e123 : Pga3d
 e123 =
     set E123 1 zero
 
 
-{-| Basis multivector |-}
+{-| Basis multivector -}
 e0123 : Pga3d
 e0123 =
     set E0123 1 zero

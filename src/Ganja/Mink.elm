@@ -21,7 +21,7 @@ Generated with ganja.js written by enki.
 @docs norm, inorm, normalized
 -}
 
-{-| Basis type |-}
+{-| Basis type -}
 type MinkBasis =
     Scalar
     | E1
@@ -35,13 +35,13 @@ basisList =
     [ Scalar, E1, E2, E12 ]
 
 
-{-| Number of coefficients |-}
+{-| Number of coefficients -}
 basisCount : Int
 basisCount = 
     4
 
 
-{-| Basis name |-}
+{-| Basis name -}
 basisName : MinkBasis -> String
 basisName basis =
     case basis of
@@ -58,18 +58,18 @@ basisName basis =
             "e12"
 
 
-{-| Multivector |-}
+{-| Multivector -}
 type Mink =
     Mink Float Float Float Float
 
 
-{-| Zero value |-}
+{-| Zero value -}
 zero : Mink
 zero =
     Mink 0 0 0 0
 
 
-{-| Get coefficient |-}
+{-| Get coefficient -}
 get : MinkBasis -> Mink -> Float
 get basis (Mink v0 v1 v2 v3) =
     case basis of
@@ -86,7 +86,7 @@ get basis (Mink v0 v1 v2 v3) =
             v3
 
 
-{-| Update coefficient |-}
+{-| Update coefficient -}
 set : MinkBasis -> Float -> Mink -> Mink
 set basis value (Mink v0 v1 v2 v3) =
     case basis of
@@ -103,13 +103,13 @@ set basis value (Mink v0 v1 v2 v3) =
             Mink v0 v1 v2 value
 
 
-{-| Multivector with one coefficient |-}
+{-| Multivector with one coefficient -}
 new : Float -> MinkBasis -> Mink
 new value basis =
     set basis value zero
 
 
-{-| Convert multivector to string |-}
+{-| Convert multivector to string -}
 toString : Mink -> String
 toString a =
     let 
@@ -128,7 +128,7 @@ toString a =
             |> (\s -> if s == "" then "0" else s)    
 
 
-{-| Convert list of coefficients to multivector |-}
+{-| Convert list of coefficients to multivector -}
 fromList : List Float -> Maybe Mink
 fromList list =
     case ( List.head <| List.drop 0 list , ( List.head <| List.drop 1 list , ( List.head <| List.drop 2 list , ( List.head <| List.drop 3 list )))) of
@@ -139,14 +139,14 @@ fromList list =
             Nothing
 
 
-{-| Convert multivector to list of coefficients |-}
+{-| Convert multivector to list of coefficients -}
 toList : Mink -> List Float
 toList (Mink v0 v1 v2 v3) =
     [ v0, v1, v2, v3 ]
 
 
 
-{-| Reverse the order of the basis blades. |-}
+{-| Reverse the order of the basis blades. -}
 reverse : Mink -> Mink
 reverse (Mink a0 a1 a2 a3) =
     Mink
@@ -156,7 +156,7 @@ reverse (Mink a0 a1 a2 a3) =
         (-a3)
 
 
-{-| Poincare duality operator. |-}
+{-| Poincare duality operator. -}
 dual : Mink -> Mink
 dual (Mink a0 a1 a2 a3) =
     Mink
@@ -166,7 +166,7 @@ dual (Mink a0 a1 a2 a3) =
         (a0)
 
 
-{-| Clifford Conjugation |-}
+{-| Clifford Conjugation -}
 conjugate : Mink -> Mink
 conjugate (Mink a0 a1 a2 a3) =
     Mink
@@ -176,7 +176,7 @@ conjugate (Mink a0 a1 a2 a3) =
         (-a3)
 
 
-{-| Main involution |-}
+{-| Main involution -}
 involute : Mink -> Mink
 involute (Mink a0 a1 a2 a3) =
     Mink
@@ -186,7 +186,7 @@ involute (Mink a0 a1 a2 a3) =
         (a3)
 
 
-{-| The geometric product. |-}
+{-| The geometric product. -}
 mul : Mink -> Mink -> Mink
 mul (Mink a0 a1 a2 a3) (Mink b0 b1 b2 b3) =
     Mink
@@ -196,7 +196,7 @@ mul (Mink a0 a1 a2 a3) (Mink b0 b1 b2 b3) =
         (b3 * a0 + b2 * a1 - b1 * a2 + b0 * a3)
 
 
-{-| The outer product. (MEET) |-}
+{-| The outer product. (MEET) -}
 wedge : Mink -> Mink -> Mink
 wedge (Mink a0 a1 a2 a3) (Mink b0 b1 b2 b3) =
     Mink
@@ -206,7 +206,7 @@ wedge (Mink a0 a1 a2 a3) (Mink b0 b1 b2 b3) =
         (b3 * a0 + b2 * a1 - b1 * a2 + b0 * a3)
 
 
-{-| The regressive product. (JOIN) |-}
+{-| The regressive product. (JOIN) -}
 vee : Mink -> Mink -> Mink
 vee (Mink a0 a1 a2 a3) (Mink b0 b1 b2 b3) =
     Mink
@@ -216,7 +216,7 @@ vee (Mink a0 a1 a2 a3) (Mink b0 b1 b2 b3) =
         (1 * (a0 * b3 + a1 * b2 * -1 - a2 * -1 * b1 + a3 * b0))
 
 
-{-| The inner product. |-}
+{-| The inner product. -}
 dot : Mink -> Mink -> Mink
 dot (Mink a0 a1 a2 a3) (Mink b0 b1 b2 b3) =
     Mink
@@ -226,7 +226,7 @@ dot (Mink a0 a1 a2 a3) (Mink b0 b1 b2 b3) =
         (b3 * a0 + b0 * a3)
 
 
-{-| Multivector addition |-}
+{-| Multivector addition -}
 add : Mink -> Mink -> Mink
 add (Mink a0 a1 a2 a3) (Mink b0 b1 b2 b3) =
     Mink
@@ -236,7 +236,7 @@ add (Mink a0 a1 a2 a3) (Mink b0 b1 b2 b3) =
         (a3 + b3)
 
 
-{-| Multivector subtraction |-}
+{-| Multivector subtraction -}
 sub : Mink -> Mink -> Mink
 sub (Mink a0 a1 a2 a3) (Mink b0 b1 b2 b3) =
     Mink
@@ -246,7 +246,7 @@ sub (Mink a0 a1 a2 a3) (Mink b0 b1 b2 b3) =
         (a3 - b3)
 
 
-{-| scalar/multivector multiplication |-}
+{-| scalar/multivector multiplication -}
 smul : Float -> Mink -> Mink
 smul a (Mink b0 b1 b2 b3) =
     Mink
@@ -256,7 +256,7 @@ smul a (Mink b0 b1 b2 b3) =
         (a * b3)
 
 
-{-| multivector/scalar multiplication |-}
+{-| multivector/scalar multiplication -}
 muls : Mink -> Float -> Mink
 muls (Mink a0 a1 a2 a3) b =
     Mink
@@ -266,7 +266,7 @@ muls (Mink a0 a1 a2 a3) b =
         (a3 * b)
 
 
-{-| scalar/multivector addition |-}
+{-| scalar/multivector addition -}
 sadd : Float -> Mink -> Mink
 sadd a (Mink b0 b1 b2 b3) =
     Mink
@@ -276,7 +276,7 @@ sadd a (Mink b0 b1 b2 b3) =
         (b3)
 
 
-{-| multivector/scalar addition |-}
+{-| multivector/scalar addition -}
 adds : Mink -> Float -> Mink
 adds (Mink a0 a1 a2 a3) b =
     Mink
@@ -286,7 +286,7 @@ adds (Mink a0 a1 a2 a3) b =
         (a3)
 
 
-{-| scalar/multivector subtraction |-}
+{-| scalar/multivector subtraction -}
 ssub : Float -> Mink -> Mink
 ssub a (Mink b0 b1 b2 b3) =
     Mink
@@ -296,7 +296,7 @@ ssub a (Mink b0 b1 b2 b3) =
         (-b3)
 
 
-{-| multivector/scalar subtraction |-}
+{-| multivector/scalar subtraction -}
 subs : Mink -> Float -> Mink
 subs (Mink a0 a1 a2 a3) b =
     Mink
@@ -306,43 +306,43 @@ subs (Mink a0 a1 a2 a3) b =
         (a3)
 
 
-{-| Norm |-}
+{-| Norm -}
 norm : Mink -> Float
 norm a =
     sqrt <| abs <| get Scalar <| mul a <| conjugate a
 
 
-{-| Norm of dual |-}
+{-| Norm of dual -}
 inorm : Mink -> Float
 inorm a =
     norm (dual a)
 
 
-{-| Normalized multivector |-}
+{-| Normalized multivector -}
 normalized : Mink -> Mink
 normalized a =
     muls a (1 / norm a)
 
 
-{-| Basis multivector |-}
+{-| Basis multivector -}
 scalar : Mink
 scalar =
     set Scalar 1 zero
 
 
-{-| Basis multivector |-}
+{-| Basis multivector -}
 e1 : Mink
 e1 =
     set E1 1 zero
 
 
-{-| Basis multivector |-}
+{-| Basis multivector -}
 e2 : Mink
 e2 =
     set E2 1 zero
 
 
-{-| Basis multivector |-}
+{-| Basis multivector -}
 e12 : Mink
 e12 =
     set E12 1 zero

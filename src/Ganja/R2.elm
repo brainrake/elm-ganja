@@ -21,7 +21,7 @@ Generated with ganja.js written by enki.
 @docs norm, inorm, normalized
 -}
 
-{-| Basis type |-}
+{-| Basis type -}
 type R2Basis =
     Scalar
     | E1
@@ -35,13 +35,13 @@ basisList =
     [ Scalar, E1, E2, E12 ]
 
 
-{-| Number of coefficients |-}
+{-| Number of coefficients -}
 basisCount : Int
 basisCount = 
     4
 
 
-{-| Basis name |-}
+{-| Basis name -}
 basisName : R2Basis -> String
 basisName basis =
     case basis of
@@ -58,18 +58,18 @@ basisName basis =
             "e12"
 
 
-{-| Multivector |-}
+{-| Multivector -}
 type R2 =
     R2 Float Float Float Float
 
 
-{-| Zero value |-}
+{-| Zero value -}
 zero : R2
 zero =
     R2 0 0 0 0
 
 
-{-| Get coefficient |-}
+{-| Get coefficient -}
 get : R2Basis -> R2 -> Float
 get basis (R2 v0 v1 v2 v3) =
     case basis of
@@ -86,7 +86,7 @@ get basis (R2 v0 v1 v2 v3) =
             v3
 
 
-{-| Update coefficient |-}
+{-| Update coefficient -}
 set : R2Basis -> Float -> R2 -> R2
 set basis value (R2 v0 v1 v2 v3) =
     case basis of
@@ -103,13 +103,13 @@ set basis value (R2 v0 v1 v2 v3) =
             R2 v0 v1 v2 value
 
 
-{-| Multivector with one coefficient |-}
+{-| Multivector with one coefficient -}
 new : Float -> R2Basis -> R2
 new value basis =
     set basis value zero
 
 
-{-| Convert multivector to string |-}
+{-| Convert multivector to string -}
 toString : R2 -> String
 toString a =
     let 
@@ -128,7 +128,7 @@ toString a =
             |> (\s -> if s == "" then "0" else s)    
 
 
-{-| Convert list of coefficients to multivector |-}
+{-| Convert list of coefficients to multivector -}
 fromList : List Float -> Maybe R2
 fromList list =
     case ( List.head <| List.drop 0 list , ( List.head <| List.drop 1 list , ( List.head <| List.drop 2 list , ( List.head <| List.drop 3 list )))) of
@@ -139,14 +139,14 @@ fromList list =
             Nothing
 
 
-{-| Convert multivector to list of coefficients |-}
+{-| Convert multivector to list of coefficients -}
 toList : R2 -> List Float
 toList (R2 v0 v1 v2 v3) =
     [ v0, v1, v2, v3 ]
 
 
 
-{-| Reverse the order of the basis blades. |-}
+{-| Reverse the order of the basis blades. -}
 reverse : R2 -> R2
 reverse (R2 a0 a1 a2 a3) =
     R2
@@ -156,7 +156,7 @@ reverse (R2 a0 a1 a2 a3) =
         (-a3)
 
 
-{-| Poincare duality operator. |-}
+{-| Poincare duality operator. -}
 dual : R2 -> R2
 dual (R2 a0 a1 a2 a3) =
     R2
@@ -166,7 +166,7 @@ dual (R2 a0 a1 a2 a3) =
         (a0)
 
 
-{-| Clifford Conjugation |-}
+{-| Clifford Conjugation -}
 conjugate : R2 -> R2
 conjugate (R2 a0 a1 a2 a3) =
     R2
@@ -176,7 +176,7 @@ conjugate (R2 a0 a1 a2 a3) =
         (-a3)
 
 
-{-| Main involution |-}
+{-| Main involution -}
 involute : R2 -> R2
 involute (R2 a0 a1 a2 a3) =
     R2
@@ -186,7 +186,7 @@ involute (R2 a0 a1 a2 a3) =
         (a3)
 
 
-{-| The geometric product. |-}
+{-| The geometric product. -}
 mul : R2 -> R2 -> R2
 mul (R2 a0 a1 a2 a3) (R2 b0 b1 b2 b3) =
     R2
@@ -196,7 +196,7 @@ mul (R2 a0 a1 a2 a3) (R2 b0 b1 b2 b3) =
         (b3 * a0 + b2 * a1 - b1 * a2 + b0 * a3)
 
 
-{-| The outer product. (MEET) |-}
+{-| The outer product. (MEET) -}
 wedge : R2 -> R2 -> R2
 wedge (R2 a0 a1 a2 a3) (R2 b0 b1 b2 b3) =
     R2
@@ -206,7 +206,7 @@ wedge (R2 a0 a1 a2 a3) (R2 b0 b1 b2 b3) =
         (b3 * a0 + b2 * a1 - b1 * a2 + b0 * a3)
 
 
-{-| The regressive product. (JOIN) |-}
+{-| The regressive product. (JOIN) -}
 vee : R2 -> R2 -> R2
 vee (R2 a0 a1 a2 a3) (R2 b0 b1 b2 b3) =
     R2
@@ -216,7 +216,7 @@ vee (R2 a0 a1 a2 a3) (R2 b0 b1 b2 b3) =
         (1 * (a0 * b3 + a1 * b2 * -1 - a2 * -1 * b1 + a3 * b0))
 
 
-{-| The inner product. |-}
+{-| The inner product. -}
 dot : R2 -> R2 -> R2
 dot (R2 a0 a1 a2 a3) (R2 b0 b1 b2 b3) =
     R2
@@ -226,7 +226,7 @@ dot (R2 a0 a1 a2 a3) (R2 b0 b1 b2 b3) =
         (b3 * a0 + b0 * a3)
 
 
-{-| Multivector addition |-}
+{-| Multivector addition -}
 add : R2 -> R2 -> R2
 add (R2 a0 a1 a2 a3) (R2 b0 b1 b2 b3) =
     R2
@@ -236,7 +236,7 @@ add (R2 a0 a1 a2 a3) (R2 b0 b1 b2 b3) =
         (a3 + b3)
 
 
-{-| Multivector subtraction |-}
+{-| Multivector subtraction -}
 sub : R2 -> R2 -> R2
 sub (R2 a0 a1 a2 a3) (R2 b0 b1 b2 b3) =
     R2
@@ -246,7 +246,7 @@ sub (R2 a0 a1 a2 a3) (R2 b0 b1 b2 b3) =
         (a3 - b3)
 
 
-{-| scalar/multivector multiplication |-}
+{-| scalar/multivector multiplication -}
 smul : Float -> R2 -> R2
 smul a (R2 b0 b1 b2 b3) =
     R2
@@ -256,7 +256,7 @@ smul a (R2 b0 b1 b2 b3) =
         (a * b3)
 
 
-{-| multivector/scalar multiplication |-}
+{-| multivector/scalar multiplication -}
 muls : R2 -> Float -> R2
 muls (R2 a0 a1 a2 a3) b =
     R2
@@ -266,7 +266,7 @@ muls (R2 a0 a1 a2 a3) b =
         (a3 * b)
 
 
-{-| scalar/multivector addition |-}
+{-| scalar/multivector addition -}
 sadd : Float -> R2 -> R2
 sadd a (R2 b0 b1 b2 b3) =
     R2
@@ -276,7 +276,7 @@ sadd a (R2 b0 b1 b2 b3) =
         (b3)
 
 
-{-| multivector/scalar addition |-}
+{-| multivector/scalar addition -}
 adds : R2 -> Float -> R2
 adds (R2 a0 a1 a2 a3) b =
     R2
@@ -286,7 +286,7 @@ adds (R2 a0 a1 a2 a3) b =
         (a3)
 
 
-{-| scalar/multivector subtraction |-}
+{-| scalar/multivector subtraction -}
 ssub : Float -> R2 -> R2
 ssub a (R2 b0 b1 b2 b3) =
     R2
@@ -296,7 +296,7 @@ ssub a (R2 b0 b1 b2 b3) =
         (-b3)
 
 
-{-| multivector/scalar subtraction |-}
+{-| multivector/scalar subtraction -}
 subs : R2 -> Float -> R2
 subs (R2 a0 a1 a2 a3) b =
     R2
@@ -306,43 +306,43 @@ subs (R2 a0 a1 a2 a3) b =
         (a3)
 
 
-{-| Norm |-}
+{-| Norm -}
 norm : R2 -> Float
 norm a =
     sqrt <| abs <| get Scalar <| mul a <| conjugate a
 
 
-{-| Norm of dual |-}
+{-| Norm of dual -}
 inorm : R2 -> Float
 inorm a =
     norm (dual a)
 
 
-{-| Normalized multivector |-}
+{-| Normalized multivector -}
 normalized : R2 -> R2
 normalized a =
     muls a (1 / norm a)
 
 
-{-| Basis multivector |-}
+{-| Basis multivector -}
 scalar : R2
 scalar =
     set Scalar 1 zero
 
 
-{-| Basis multivector |-}
+{-| Basis multivector -}
 e1 : R2
 e1 =
     set E1 1 zero
 
 
-{-| Basis multivector |-}
+{-| Basis multivector -}
 e2 : R2
 e2 =
     set E2 1 zero
 
 
-{-| Basis multivector |-}
+{-| Basis multivector -}
 e12 : R2
 e12 =
     set E12 1 zero

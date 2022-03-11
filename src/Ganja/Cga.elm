@@ -21,7 +21,7 @@ Generated with ganja.js written by enki.
 @docs norm, inorm, normalized
 -}
 
-{-| Basis type |-}
+{-| Basis type -}
 type CgaBasis =
     Scalar
     | E1
@@ -63,13 +63,13 @@ basisList =
     [ Scalar, E1, E2, E3, E4, E5, E12, E13, E14, E15, E23, E24, E25, E34, E35, E45, E123, E124, E125, E134, E135, E145, E234, E235, E245, E345, E1234, E1235, E1245, E1345, E2345, E12345 ]
 
 
-{-| Number of coefficients |-}
+{-| Number of coefficients -}
 basisCount : Int
 basisCount = 
     32
 
 
-{-| Basis name |-}
+{-| Basis name -}
 basisName : CgaBasis -> String
 basisName basis =
     case basis of
@@ -170,18 +170,18 @@ basisName basis =
             "e12345"
 
 
-{-| Multivector |-}
+{-| Multivector -}
 type Cga =
     Cga Float Float Float Float Float Float Float Float Float Float Float Float Float Float Float Float Float Float Float Float Float Float Float Float Float Float Float Float Float Float Float Float
 
 
-{-| Zero value |-}
+{-| Zero value -}
 zero : Cga
 zero =
     Cga 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 
 
-{-| Get coefficient |-}
+{-| Get coefficient -}
 get : CgaBasis -> Cga -> Float
 get basis (Cga v0 v1 v2 v3 v4 v5 v6 v7 v8 v9 v10 v11 v12 v13 v14 v15 v16 v17 v18 v19 v20 v21 v22 v23 v24 v25 v26 v27 v28 v29 v30 v31) =
     case basis of
@@ -282,7 +282,7 @@ get basis (Cga v0 v1 v2 v3 v4 v5 v6 v7 v8 v9 v10 v11 v12 v13 v14 v15 v16 v17 v18
             v31
 
 
-{-| Update coefficient |-}
+{-| Update coefficient -}
 set : CgaBasis -> Float -> Cga -> Cga
 set basis value (Cga v0 v1 v2 v3 v4 v5 v6 v7 v8 v9 v10 v11 v12 v13 v14 v15 v16 v17 v18 v19 v20 v21 v22 v23 v24 v25 v26 v27 v28 v29 v30 v31) =
     case basis of
@@ -383,13 +383,13 @@ set basis value (Cga v0 v1 v2 v3 v4 v5 v6 v7 v8 v9 v10 v11 v12 v13 v14 v15 v16 v
             Cga v0 v1 v2 v3 v4 v5 v6 v7 v8 v9 v10 v11 v12 v13 v14 v15 v16 v17 v18 v19 v20 v21 v22 v23 v24 v25 v26 v27 v28 v29 v30 value
 
 
-{-| Multivector with one coefficient |-}
+{-| Multivector with one coefficient -}
 new : Float -> CgaBasis -> Cga
 new value basis =
     set basis value zero
 
 
-{-| Convert multivector to string |-}
+{-| Convert multivector to string -}
 toString : Cga -> String
 toString a =
     let 
@@ -408,7 +408,7 @@ toString a =
             |> (\s -> if s == "" then "0" else s)    
 
 
-{-| Convert list of coefficients to multivector |-}
+{-| Convert list of coefficients to multivector -}
 fromList : List Float -> Maybe Cga
 fromList list =
     case ( List.head <| List.drop 0 list , ( List.head <| List.drop 1 list , ( List.head <| List.drop 2 list , ( List.head <| List.drop 3 list , ( List.head <| List.drop 4 list , ( List.head <| List.drop 5 list , ( List.head <| List.drop 6 list , ( List.head <| List.drop 7 list , ( List.head <| List.drop 8 list , ( List.head <| List.drop 9 list , ( List.head <| List.drop 10 list , ( List.head <| List.drop 11 list , ( List.head <| List.drop 12 list , ( List.head <| List.drop 13 list , ( List.head <| List.drop 14 list , ( List.head <| List.drop 15 list , ( List.head <| List.drop 16 list , ( List.head <| List.drop 17 list , ( List.head <| List.drop 18 list , ( List.head <| List.drop 19 list , ( List.head <| List.drop 20 list , ( List.head <| List.drop 21 list , ( List.head <| List.drop 22 list , ( List.head <| List.drop 23 list , ( List.head <| List.drop 24 list , ( List.head <| List.drop 25 list , ( List.head <| List.drop 26 list , ( List.head <| List.drop 27 list , ( List.head <| List.drop 28 list , ( List.head <| List.drop 29 list , ( List.head <| List.drop 30 list , ( List.head <| List.drop 31 list )))))))))))))))))))))))))))))))) of
@@ -419,14 +419,14 @@ fromList list =
             Nothing
 
 
-{-| Convert multivector to list of coefficients |-}
+{-| Convert multivector to list of coefficients -}
 toList : Cga -> List Float
 toList (Cga v0 v1 v2 v3 v4 v5 v6 v7 v8 v9 v10 v11 v12 v13 v14 v15 v16 v17 v18 v19 v20 v21 v22 v23 v24 v25 v26 v27 v28 v29 v30 v31) =
     [ v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15, v16, v17, v18, v19, v20, v21, v22, v23, v24, v25, v26, v27, v28, v29, v30, v31 ]
 
 
 
-{-| Reverse the order of the basis blades. |-}
+{-| Reverse the order of the basis blades. -}
 reverse : Cga -> Cga
 reverse (Cga a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13 a14 a15 a16 a17 a18 a19 a20 a21 a22 a23 a24 a25 a26 a27 a28 a29 a30 a31) =
     Cga
@@ -464,7 +464,7 @@ reverse (Cga a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13 a14 a15 a16 a17 a18 a
         (a31)
 
 
-{-| Poincare duality operator. |-}
+{-| Poincare duality operator. -}
 dual : Cga -> Cga
 dual (Cga a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13 a14 a15 a16 a17 a18 a19 a20 a21 a22 a23 a24 a25 a26 a27 a28 a29 a30 a31) =
     Cga
@@ -502,7 +502,7 @@ dual (Cga a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13 a14 a15 a16 a17 a18 a19 
         (a0)
 
 
-{-| Clifford Conjugation |-}
+{-| Clifford Conjugation -}
 conjugate : Cga -> Cga
 conjugate (Cga a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13 a14 a15 a16 a17 a18 a19 a20 a21 a22 a23 a24 a25 a26 a27 a28 a29 a30 a31) =
     Cga
@@ -540,7 +540,7 @@ conjugate (Cga a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13 a14 a15 a16 a17 a18
         (-a31)
 
 
-{-| Main involution |-}
+{-| Main involution -}
 involute : Cga -> Cga
 involute (Cga a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13 a14 a15 a16 a17 a18 a19 a20 a21 a22 a23 a24 a25 a26 a27 a28 a29 a30 a31) =
     Cga
@@ -578,7 +578,7 @@ involute (Cga a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13 a14 a15 a16 a17 a18 
         (-a31)
 
 
-{-| The geometric product. |-}
+{-| The geometric product. -}
 mul : Cga -> Cga -> Cga
 mul (Cga a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13 a14 a15 a16 a17 a18 a19 a20 a21 a22 a23 a24 a25 a26 a27 a28 a29 a30 a31) (Cga b0 b1 b2 b3 b4 b5 b6 b7 b8 b9 b10 b11 b12 b13 b14 b15 b16 b17 b18 b19 b20 b21 b22 b23 b24 b25 b26 b27 b28 b29 b30 b31) =
     Cga
@@ -616,7 +616,7 @@ mul (Cga a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13 a14 a15 a16 a17 a18 a19 a
         (b31 * a0 + b30 * a1 - b29 * a2 + b28 * a3 - b27 * a4 + b26 * a5 + b25 * a6 - b24 * a7 + b23 * a8 - b22 * a9 + b21 * a10 - b20 * a11 + b19 * a12 + b18 * a13 - b17 * a14 + b16 * a15 + b15 * a16 - b14 * a17 + b13 * a18 + b12 * a19 - b11 * a20 + b10 * a21 - b9 * a22 + b8 * a23 - b7 * a24 + b6 * a25 + b5 * a26 - b4 * a27 + b3 * a28 - b2 * a29 + b1 * a30 + b0 * a31)
 
 
-{-| The outer product. (MEET) |-}
+{-| The outer product. (MEET) -}
 wedge : Cga -> Cga -> Cga
 wedge (Cga a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13 a14 a15 a16 a17 a18 a19 a20 a21 a22 a23 a24 a25 a26 a27 a28 a29 a30 a31) (Cga b0 b1 b2 b3 b4 b5 b6 b7 b8 b9 b10 b11 b12 b13 b14 b15 b16 b17 b18 b19 b20 b21 b22 b23 b24 b25 b26 b27 b28 b29 b30 b31) =
     Cga
@@ -654,7 +654,7 @@ wedge (Cga a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13 a14 a15 a16 a17 a18 a19
         (b31 * a0 + b30 * a1 - b29 * a2 + b28 * a3 - b27 * a4 + b26 * a5 + b25 * a6 - b24 * a7 + b23 * a8 - b22 * a9 + b21 * a10 - b20 * a11 + b19 * a12 + b18 * a13 - b17 * a14 + b16 * a15 + b15 * a16 - b14 * a17 + b13 * a18 + b12 * a19 - b11 * a20 + b10 * a21 - b9 * a22 + b8 * a23 - b7 * a24 + b6 * a25 + b5 * a26 - b4 * a27 + b3 * a28 - b2 * a29 + b1 * a30 + b0 * a31)
 
 
-{-| The regressive product. (JOIN) |-}
+{-| The regressive product. (JOIN) -}
 vee : Cga -> Cga -> Cga
 vee (Cga a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13 a14 a15 a16 a17 a18 a19 a20 a21 a22 a23 a24 a25 a26 a27 a28 a29 a30 a31) (Cga b0 b1 b2 b3 b4 b5 b6 b7 b8 b9 b10 b11 b12 b13 b14 b15 b16 b17 b18 b19 b20 b21 b22 b23 b24 b25 b26 b27 b28 b29 b30 b31) =
     Cga
@@ -692,7 +692,7 @@ vee (Cga a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13 a14 a15 a16 a17 a18 a19 a
         (1 * (a0 * b31 + a1 * b30 - a2 * -1 * b29 * -1 + a3 * b28 - a4 * -1 * b27 * -1 + a5 * b26 + a6 * b25 - a7 * -1 * b24 * -1 + a8 * b23 - a9 * -1 * b22 * -1 + a10 * b21 - a11 * -1 * b20 * -1 + a12 * b19 + a13 * b18 - a14 * -1 * b17 * -1 + a15 * b16 + a16 * b15 - a17 * -1 * b14 * -1 + a18 * b13 + a19 * b12 - a20 * -1 * b11 * -1 + a21 * b10 - a22 * -1 * b9 * -1 + a23 * b8 - a24 * -1 * b7 * -1 + a25 * b6 + a26 * b5 - a27 * -1 * b4 * -1 + a28 * b3 - a29 * -1 * b2 * -1 + a30 * b1 + a31 * b0))
 
 
-{-| The inner product. |-}
+{-| The inner product. -}
 dot : Cga -> Cga -> Cga
 dot (Cga a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13 a14 a15 a16 a17 a18 a19 a20 a21 a22 a23 a24 a25 a26 a27 a28 a29 a30 a31) (Cga b0 b1 b2 b3 b4 b5 b6 b7 b8 b9 b10 b11 b12 b13 b14 b15 b16 b17 b18 b19 b20 b21 b22 b23 b24 b25 b26 b27 b28 b29 b30 b31) =
     Cga
@@ -730,7 +730,7 @@ dot (Cga a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13 a14 a15 a16 a17 a18 a19 a
         (b31 * a0 + b0 * a31)
 
 
-{-| Multivector addition |-}
+{-| Multivector addition -}
 add : Cga -> Cga -> Cga
 add (Cga a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13 a14 a15 a16 a17 a18 a19 a20 a21 a22 a23 a24 a25 a26 a27 a28 a29 a30 a31) (Cga b0 b1 b2 b3 b4 b5 b6 b7 b8 b9 b10 b11 b12 b13 b14 b15 b16 b17 b18 b19 b20 b21 b22 b23 b24 b25 b26 b27 b28 b29 b30 b31) =
     Cga
@@ -768,7 +768,7 @@ add (Cga a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13 a14 a15 a16 a17 a18 a19 a
         (a31 + b31)
 
 
-{-| Multivector subtraction |-}
+{-| Multivector subtraction -}
 sub : Cga -> Cga -> Cga
 sub (Cga a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13 a14 a15 a16 a17 a18 a19 a20 a21 a22 a23 a24 a25 a26 a27 a28 a29 a30 a31) (Cga b0 b1 b2 b3 b4 b5 b6 b7 b8 b9 b10 b11 b12 b13 b14 b15 b16 b17 b18 b19 b20 b21 b22 b23 b24 b25 b26 b27 b28 b29 b30 b31) =
     Cga
@@ -806,7 +806,7 @@ sub (Cga a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13 a14 a15 a16 a17 a18 a19 a
         (a31 - b31)
 
 
-{-| scalar/multivector multiplication |-}
+{-| scalar/multivector multiplication -}
 smul : Float -> Cga -> Cga
 smul a (Cga b0 b1 b2 b3 b4 b5 b6 b7 b8 b9 b10 b11 b12 b13 b14 b15 b16 b17 b18 b19 b20 b21 b22 b23 b24 b25 b26 b27 b28 b29 b30 b31) =
     Cga
@@ -844,7 +844,7 @@ smul a (Cga b0 b1 b2 b3 b4 b5 b6 b7 b8 b9 b10 b11 b12 b13 b14 b15 b16 b17 b18 b1
         (a * b31)
 
 
-{-| multivector/scalar multiplication |-}
+{-| multivector/scalar multiplication -}
 muls : Cga -> Float -> Cga
 muls (Cga a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13 a14 a15 a16 a17 a18 a19 a20 a21 a22 a23 a24 a25 a26 a27 a28 a29 a30 a31) b =
     Cga
@@ -882,7 +882,7 @@ muls (Cga a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13 a14 a15 a16 a17 a18 a19 
         (a31 * b)
 
 
-{-| scalar/multivector addition |-}
+{-| scalar/multivector addition -}
 sadd : Float -> Cga -> Cga
 sadd a (Cga b0 b1 b2 b3 b4 b5 b6 b7 b8 b9 b10 b11 b12 b13 b14 b15 b16 b17 b18 b19 b20 b21 b22 b23 b24 b25 b26 b27 b28 b29 b30 b31) =
     Cga
@@ -920,7 +920,7 @@ sadd a (Cga b0 b1 b2 b3 b4 b5 b6 b7 b8 b9 b10 b11 b12 b13 b14 b15 b16 b17 b18 b1
         (b31)
 
 
-{-| multivector/scalar addition |-}
+{-| multivector/scalar addition -}
 adds : Cga -> Float -> Cga
 adds (Cga a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13 a14 a15 a16 a17 a18 a19 a20 a21 a22 a23 a24 a25 a26 a27 a28 a29 a30 a31) b =
     Cga
@@ -958,7 +958,7 @@ adds (Cga a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13 a14 a15 a16 a17 a18 a19 
         (a31)
 
 
-{-| scalar/multivector subtraction |-}
+{-| scalar/multivector subtraction -}
 ssub : Float -> Cga -> Cga
 ssub a (Cga b0 b1 b2 b3 b4 b5 b6 b7 b8 b9 b10 b11 b12 b13 b14 b15 b16 b17 b18 b19 b20 b21 b22 b23 b24 b25 b26 b27 b28 b29 b30 b31) =
     Cga
@@ -996,7 +996,7 @@ ssub a (Cga b0 b1 b2 b3 b4 b5 b6 b7 b8 b9 b10 b11 b12 b13 b14 b15 b16 b17 b18 b1
         (-b31)
 
 
-{-| multivector/scalar subtraction |-}
+{-| multivector/scalar subtraction -}
 subs : Cga -> Float -> Cga
 subs (Cga a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13 a14 a15 a16 a17 a18 a19 a20 a21 a22 a23 a24 a25 a26 a27 a28 a29 a30 a31) b =
     Cga
@@ -1034,211 +1034,211 @@ subs (Cga a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13 a14 a15 a16 a17 a18 a19 
         (a31)
 
 
-{-| Norm |-}
+{-| Norm -}
 norm : Cga -> Float
 norm a =
     sqrt <| abs <| get Scalar <| mul a <| conjugate a
 
 
-{-| Norm of dual |-}
+{-| Norm of dual -}
 inorm : Cga -> Float
 inorm a =
     norm (dual a)
 
 
-{-| Normalized multivector |-}
+{-| Normalized multivector -}
 normalized : Cga -> Cga
 normalized a =
     muls a (1 / norm a)
 
 
-{-| Basis multivector |-}
+{-| Basis multivector -}
 scalar : Cga
 scalar =
     set Scalar 1 zero
 
 
-{-| Basis multivector |-}
+{-| Basis multivector -}
 e1 : Cga
 e1 =
     set E1 1 zero
 
 
-{-| Basis multivector |-}
+{-| Basis multivector -}
 e2 : Cga
 e2 =
     set E2 1 zero
 
 
-{-| Basis multivector |-}
+{-| Basis multivector -}
 e3 : Cga
 e3 =
     set E3 1 zero
 
 
-{-| Basis multivector |-}
+{-| Basis multivector -}
 e4 : Cga
 e4 =
     set E4 1 zero
 
 
-{-| Basis multivector |-}
+{-| Basis multivector -}
 e5 : Cga
 e5 =
     set E5 1 zero
 
 
-{-| Basis multivector |-}
+{-| Basis multivector -}
 e12 : Cga
 e12 =
     set E12 1 zero
 
 
-{-| Basis multivector |-}
+{-| Basis multivector -}
 e13 : Cga
 e13 =
     set E13 1 zero
 
 
-{-| Basis multivector |-}
+{-| Basis multivector -}
 e14 : Cga
 e14 =
     set E14 1 zero
 
 
-{-| Basis multivector |-}
+{-| Basis multivector -}
 e15 : Cga
 e15 =
     set E15 1 zero
 
 
-{-| Basis multivector |-}
+{-| Basis multivector -}
 e23 : Cga
 e23 =
     set E23 1 zero
 
 
-{-| Basis multivector |-}
+{-| Basis multivector -}
 e24 : Cga
 e24 =
     set E24 1 zero
 
 
-{-| Basis multivector |-}
+{-| Basis multivector -}
 e25 : Cga
 e25 =
     set E25 1 zero
 
 
-{-| Basis multivector |-}
+{-| Basis multivector -}
 e34 : Cga
 e34 =
     set E34 1 zero
 
 
-{-| Basis multivector |-}
+{-| Basis multivector -}
 e35 : Cga
 e35 =
     set E35 1 zero
 
 
-{-| Basis multivector |-}
+{-| Basis multivector -}
 e45 : Cga
 e45 =
     set E45 1 zero
 
 
-{-| Basis multivector |-}
+{-| Basis multivector -}
 e123 : Cga
 e123 =
     set E123 1 zero
 
 
-{-| Basis multivector |-}
+{-| Basis multivector -}
 e124 : Cga
 e124 =
     set E124 1 zero
 
 
-{-| Basis multivector |-}
+{-| Basis multivector -}
 e125 : Cga
 e125 =
     set E125 1 zero
 
 
-{-| Basis multivector |-}
+{-| Basis multivector -}
 e134 : Cga
 e134 =
     set E134 1 zero
 
 
-{-| Basis multivector |-}
+{-| Basis multivector -}
 e135 : Cga
 e135 =
     set E135 1 zero
 
 
-{-| Basis multivector |-}
+{-| Basis multivector -}
 e145 : Cga
 e145 =
     set E145 1 zero
 
 
-{-| Basis multivector |-}
+{-| Basis multivector -}
 e234 : Cga
 e234 =
     set E234 1 zero
 
 
-{-| Basis multivector |-}
+{-| Basis multivector -}
 e235 : Cga
 e235 =
     set E235 1 zero
 
 
-{-| Basis multivector |-}
+{-| Basis multivector -}
 e245 : Cga
 e245 =
     set E245 1 zero
 
 
-{-| Basis multivector |-}
+{-| Basis multivector -}
 e345 : Cga
 e345 =
     set E345 1 zero
 
 
-{-| Basis multivector |-}
+{-| Basis multivector -}
 e1234 : Cga
 e1234 =
     set E1234 1 zero
 
 
-{-| Basis multivector |-}
+{-| Basis multivector -}
 e1235 : Cga
 e1235 =
     set E1235 1 zero
 
 
-{-| Basis multivector |-}
+{-| Basis multivector -}
 e1245 : Cga
 e1245 =
     set E1245 1 zero
 
 
-{-| Basis multivector |-}
+{-| Basis multivector -}
 e1345 : Cga
 e1345 =
     set E1345 1 zero
 
 
-{-| Basis multivector |-}
+{-| Basis multivector -}
 e2345 : Cga
 e2345 =
     set E2345 1 zero
 
 
-{-| Basis multivector |-}
+{-| Basis multivector -}
 e12345 : Cga
 e12345 =
     set E12345 1 zero

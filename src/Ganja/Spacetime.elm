@@ -1,5 +1,6 @@
-module Ganja.Spacetime exposing (SpacetimeBasis(..), basisList, basisCount, basisName, Spacetime(..), zero, get, set, new, toString, fromList, toList, reverse, dual, conjugate, involute, mul, wedge, vee, dot, add, sub, smul, muls, sadd, adds, ssub, subs, norm, inorm, normalized)
+module Ganja.Spacetime exposing (SpacetimeBasis(..), basisList, basisCount, basisName, Spacetime(..), zero, get, set, new, toString, fromList, toList, reverse, dual, conjugate, involute, mul, wedge, vee, dot, add, sub, smul, muls, sadd, adds, ssub, subs, norm, inorm, normalized, unitScalar, e1, e2, e3, e4, e12, e13, e14, e23, e24, e34, e123, e124, e134, e234, e1234)
 {-| Clifford Algebra: Spacetime
+
 Generated with ganja.js written by enki.
 
 # Basis
@@ -7,6 +8,9 @@ Generated with ganja.js written by enki.
 
 # Multivector
 @docs Spacetime, zero, get, set, new
+
+# Basis multivectors
+@docs  unitScalar, e1, e2, e3, e4, e12, e13, e14, e23, e24, e34, e123, e124, e134, e234, e1234
 
 # Conversion
 @docs toString, fromList, toList
@@ -239,8 +243,11 @@ toString a =
         basisNames =
             basisList |> List.map basisName |> List.map (\x -> if x == "1" then "" else x)
         
+        roundFloat x =
+            toFloat (round (x * 1000000)) / 1000000
+
         formatCoefficient v b =
-            if (abs v > 0.000001) then (String.fromFloat v ++ b) else ""
+            if (abs v > 0.000001) then (String.fromFloat (roundFloat v) ++ b) else ""
     in
         List.map2 formatCoefficient values basisNames 
             |> List.filter ((/=) "")
@@ -402,22 +409,22 @@ wedge (Spacetime a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13 a14 a15) (Spaceti
 vee : Spacetime -> Spacetime -> Spacetime
 vee (Spacetime a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13 a14 a15) (Spacetime b0 b1 b2 b3 b4 b5 b6 b7 b8 b9 b10 b11 b12 b13 b14 b15) =
     Spacetime
-        (1 * (a15 * b15))
-        (-1 * (a14 * -1 * b15 + a15 * b14 * -1))
-        (1 * (a13 * b15 + a15 * b13))
-        (-1 * (a12 * -1 * b15 + a15 * b12 * -1))
-        (1 * (a11 * b15 + a15 * b11))
-        (1 * (a10 * b15 + a13 * b14 * -1 - a14 * -1 * b13 + a15 * b10))
-        (-1 * (a9 * -1 * b15 + a12 * -1 * b14 * -1 - a14 * -1 * b12 * -1 + a15 * b9 * -1))
-        (1 * (a8 * b15 + a11 * b14 * -1 - a14 * -1 * b11 + a15 * b8))
-        (1 * (a7 * b15 + a12 * -1 * b13 - a13 * b12 * -1 + a15 * b7))
-        (-1 * (a6 * -1 * b15 + a11 * b13 - a13 * b11 + a15 * b6 * -1))
-        (1 * (a5 * b15 + a11 * b12 * -1 - a12 * -1 * b11 + a15 * b5))
-        (-1 * (a4 * -1 * b15 + a7 * b14 * -1 - a9 * -1 * b13 + a10 * b12 * -1 + a12 * -1 * b10 - a13 * b9 * -1 + a14 * -1 * b7 + a15 * b4 * -1))
-        (1 * (a3 * b15 + a6 * -1 * b14 * -1 - a8 * b13 + a10 * b11 + a11 * b10 - a13 * b8 + a14 * -1 * b6 * -1 + a15 * b3))
-        (-1 * (a2 * -1 * b15 + a5 * b14 * -1 - a8 * b12 * -1 + a9 * -1 * b11 + a11 * b9 * -1 - a12 * -1 * b8 + a14 * -1 * b5 + a15 * b2 * -1))
-        (1 * (a1 * b15 + a5 * b13 - a6 * -1 * b12 * -1 + a7 * b11 + a11 * b7 - a12 * -1 * b6 * -1 + a13 * b5 + a15 * b1))
         (1 * (a0 * b15 + a1 * b14 * -1 - a2 * -1 * b13 + a3 * b12 * -1 - a4 * -1 * b11 + a5 * b10 - a6 * -1 * b9 * -1 + a7 * b8 + a8 * b7 - a9 * -1 * b6 * -1 + a10 * b5 + a11 * b4 * -1 - a12 * -1 * b3 + a13 * b2 * -1 - a14 * -1 * b1 + a15 * b0))
+        (1 * (a1 * b15 + a5 * b13 - a6 * -1 * b12 * -1 + a7 * b11 + a11 * b7 - a12 * -1 * b6 * -1 + a13 * b5 + a15 * b1))
+        (-1 * (a2 * -1 * b15 + a5 * b14 * -1 - a8 * b12 * -1 + a9 * -1 * b11 + a11 * b9 * -1 - a12 * -1 * b8 + a14 * -1 * b5 + a15 * b2 * -1))
+        (1 * (a3 * b15 + a6 * -1 * b14 * -1 - a8 * b13 + a10 * b11 + a11 * b10 - a13 * b8 + a14 * -1 * b6 * -1 + a15 * b3))
+        (-1 * (a4 * -1 * b15 + a7 * b14 * -1 - a9 * -1 * b13 + a10 * b12 * -1 + a12 * -1 * b10 - a13 * b9 * -1 + a14 * -1 * b7 + a15 * b4 * -1))
+        (1 * (a5 * b15 + a11 * b12 * -1 - a12 * -1 * b11 + a15 * b5))
+        (-1 * (a6 * -1 * b15 + a11 * b13 - a13 * b11 + a15 * b6 * -1))
+        (1 * (a7 * b15 + a12 * -1 * b13 - a13 * b12 * -1 + a15 * b7))
+        (1 * (a8 * b15 + a11 * b14 * -1 - a14 * -1 * b11 + a15 * b8))
+        (-1 * (a9 * -1 * b15 + a12 * -1 * b14 * -1 - a14 * -1 * b12 * -1 + a15 * b9 * -1))
+        (1 * (a10 * b15 + a13 * b14 * -1 - a14 * -1 * b13 + a15 * b10))
+        (1 * (a11 * b15 + a15 * b11))
+        (-1 * (a12 * -1 * b15 + a15 * b12 * -1))
+        (1 * (a13 * b15 + a15 * b13))
+        (-1 * (a14 * -1 * b15 + a15 * b14 * -1))
+        (1 * (a15 * b15))
 
 
 {-| The inner product. -}
@@ -637,8 +644,8 @@ normalized a =
 
 
 {-| Basis multivector -}
-scalar : Spacetime
-scalar =
+unitScalar : Spacetime
+unitScalar =
     set Scalar 1 zero
 
 

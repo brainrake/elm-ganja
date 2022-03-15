@@ -1,5 +1,6 @@
-module Ganja.R3 exposing (R3Basis(..), basisList, basisCount, basisName, R3(..), zero, get, set, new, toString, fromList, toList, reverse, dual, conjugate, involute, mul, wedge, vee, dot, add, sub, smul, muls, sadd, adds, ssub, subs, norm, inorm, normalized)
+module Ganja.R3 exposing (R3Basis(..), basisList, basisCount, basisName, R3(..), zero, get, set, new, toString, fromList, toList, reverse, dual, conjugate, involute, mul, wedge, vee, dot, add, sub, smul, muls, sadd, adds, ssub, subs, norm, inorm, normalized, unitScalar, e1, e2, e3, e12, e13, e23, e123)
 {-| Clifford Algebra: R3
+
 Generated with ganja.js written by enki.
 
 # Basis
@@ -7,6 +8,9 @@ Generated with ganja.js written by enki.
 
 # Multivector
 @docs R3, zero, get, set, new
+
+# Basis multivectors
+@docs  unitScalar, e1, e2, e3, e12, e13, e23, e123
 
 # Conversion
 @docs toString, fromList, toList
@@ -159,8 +163,11 @@ toString a =
         basisNames =
             basisList |> List.map basisName |> List.map (\x -> if x == "1" then "" else x)
         
+        roundFloat x =
+            toFloat (round (x * 1000000)) / 1000000
+
         formatCoefficient v b =
-            if (abs v > 0.000001) then (String.fromFloat v ++ b) else ""
+            if (abs v > 0.000001) then (String.fromFloat (roundFloat v) ++ b) else ""
     in
         List.map2 formatCoefficient values basisNames 
             |> List.filter ((/=) "")
@@ -274,14 +281,14 @@ wedge (R3 a0 a1 a2 a3 a4 a5 a6 a7) (R3 b0 b1 b2 b3 b4 b5 b6 b7) =
 vee : R3 -> R3 -> R3
 vee (R3 a0 a1 a2 a3 a4 a5 a6 a7) (R3 b0 b1 b2 b3 b4 b5 b6 b7) =
     R3
-        (1 * (a7 * b7))
-        (1 * (a6 * b7 + a7 * b6))
-        (-1 * (a5 * -1 * b7 + a7 * b5 * -1))
-        (1 * (a4 * b7 + a7 * b4))
-        (1 * (a3 * b7 + a5 * -1 * b6 - a6 * b5 * -1 + a7 * b3))
-        (-1 * (a2 * -1 * b7 + a4 * b6 - a6 * b4 + a7 * b2 * -1))
-        (1 * (a1 * b7 + a4 * b5 * -1 - a5 * -1 * b4 + a7 * b1))
         (1 * (a0 * b7 + a1 * b6 - a2 * -1 * b5 * -1 + a3 * b4 + a4 * b3 - a5 * -1 * b2 * -1 + a6 * b1 + a7 * b0))
+        (1 * (a1 * b7 + a4 * b5 * -1 - a5 * -1 * b4 + a7 * b1))
+        (-1 * (a2 * -1 * b7 + a4 * b6 - a6 * b4 + a7 * b2 * -1))
+        (1 * (a3 * b7 + a5 * -1 * b6 - a6 * b5 * -1 + a7 * b3))
+        (1 * (a4 * b7 + a7 * b4))
+        (-1 * (a5 * -1 * b7 + a7 * b5 * -1))
+        (1 * (a6 * b7 + a7 * b6))
+        (1 * (a7 * b7))
 
 
 {-| The inner product. -}
@@ -429,8 +436,8 @@ normalized a =
 
 
 {-| Basis multivector -}
-scalar : R3
-scalar =
+unitScalar : R3
+unitScalar =
     set Scalar 1 zero
 
 

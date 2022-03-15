@@ -1,5 +1,6 @@
-module Ganja.Hyperbolic exposing (HyperbolicBasis(..), basisList, basisCount, basisName, Hyperbolic(..), zero, get, set, new, toString, fromList, toList, reverse, dual, conjugate, involute, mul, wedge, vee, dot, add, sub, smul, muls, sadd, adds, ssub, subs, norm, inorm, normalized)
+module Ganja.Hyperbolic exposing (HyperbolicBasis(..), basisList, basisCount, basisName, Hyperbolic(..), zero, get, set, new, toString, fromList, toList, reverse, dual, conjugate, involute, mul, wedge, vee, dot, add, sub, smul, muls, sadd, adds, ssub, subs, norm, inorm, normalized, unitScalar, e1)
 {-| Clifford Algebra: Hyperbolic
+
 Generated with ganja.js written by enki.
 
 # Basis
@@ -7,6 +8,9 @@ Generated with ganja.js written by enki.
 
 # Multivector
 @docs Hyperbolic, zero, get, set, new
+
+# Basis multivectors
+@docs  unitScalar, e1
 
 # Conversion
 @docs toString, fromList, toList
@@ -99,8 +103,11 @@ toString a =
         basisNames =
             basisList |> List.map basisName |> List.map (\x -> if x == "1" then "" else x)
         
+        roundFloat x =
+            toFloat (round (x * 1000000)) / 1000000
+
         formatCoefficient v b =
-            if (abs v > 0.000001) then (String.fromFloat v ++ b) else ""
+            if (abs v > 0.000001) then (String.fromFloat (roundFloat v) ++ b) else ""
     in
         List.map2 formatCoefficient values basisNames 
             |> List.filter ((/=) "")
@@ -178,8 +185,8 @@ wedge (Hyperbolic a0 a1) (Hyperbolic b0 b1) =
 vee : Hyperbolic -> Hyperbolic -> Hyperbolic
 vee (Hyperbolic a0 a1) (Hyperbolic b0 b1) =
     Hyperbolic
-        (1 * (a1 * b1))
         (1 * (a0 * b1 + a1 * b0))
+        (1 * (a1 * b1))
 
 
 {-| The inner product. -}
@@ -273,8 +280,8 @@ normalized a =
 
 
 {-| Basis multivector -}
-scalar : Hyperbolic
-scalar =
+unitScalar : Hyperbolic
+unitScalar =
     set Scalar 1 zero
 
 

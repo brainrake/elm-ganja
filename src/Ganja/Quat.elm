@@ -1,5 +1,6 @@
-module Ganja.Quat exposing (QuatBasis(..), basisList, basisCount, basisName, Quat(..), zero, get, set, new, toString, fromList, toList, reverse, dual, conjugate, involute, mul, wedge, vee, dot, add, sub, smul, muls, sadd, adds, ssub, subs, norm, inorm, normalized)
+module Ganja.Quat exposing (QuatBasis(..), basisList, basisCount, basisName, Quat(..), zero, get, set, new, toString, fromList, toList, reverse, dual, conjugate, involute, mul, wedge, vee, dot, add, sub, smul, muls, sadd, adds, ssub, subs, norm, inorm, normalized, unitScalar, e1, e2, e12)
 {-| Clifford Algebra: Quat
+
 Generated with ganja.js written by enki.
 
 # Basis
@@ -7,6 +8,9 @@ Generated with ganja.js written by enki.
 
 # Multivector
 @docs Quat, zero, get, set, new
+
+# Basis multivectors
+@docs  unitScalar, e1, e2, e12
 
 # Conversion
 @docs toString, fromList, toList
@@ -119,8 +123,11 @@ toString a =
         basisNames =
             basisList |> List.map basisName |> List.map (\x -> if x == "1" then "" else x)
         
+        roundFloat x =
+            toFloat (round (x * 1000000)) / 1000000
+
         formatCoefficient v b =
-            if (abs v > 0.000001) then (String.fromFloat v ++ b) else ""
+            if (abs v > 0.000001) then (String.fromFloat (roundFloat v) ++ b) else ""
     in
         List.map2 formatCoefficient values basisNames 
             |> List.filter ((/=) "")
@@ -210,10 +217,10 @@ wedge (Quat a0 a1 a2 a3) (Quat b0 b1 b2 b3) =
 vee : Quat -> Quat -> Quat
 vee (Quat a0 a1 a2 a3) (Quat b0 b1 b2 b3) =
     Quat
-        (1 * (a3 * b3))
-        (-1 * (a2 * -1 * b3 + a3 * b2 * -1))
-        (1 * (a1 * b3 + a3 * b1))
         (1 * (a0 * b3 + a1 * b2 * -1 - a2 * -1 * b1 + a3 * b0))
+        (1 * (a1 * b3 + a3 * b1))
+        (-1 * (a2 * -1 * b3 + a3 * b2 * -1))
+        (1 * (a3 * b3))
 
 
 {-| The inner product. -}
@@ -325,8 +332,8 @@ normalized a =
 
 
 {-| Basis multivector -}
-scalar : Quat
-scalar =
+unitScalar : Quat
+unitScalar =
     set Scalar 1 zero
 
 

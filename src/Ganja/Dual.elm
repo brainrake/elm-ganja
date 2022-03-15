@@ -104,7 +104,7 @@ toString a =
             basisList |> List.map basisName |> List.map (\x -> if x == "1" then "" else x)
         
         roundFloat x =
-            toFloat (round (x * 1000000)) / 1000000
+            toFloat (round (x * 10000000)) / 10000000
 
         formatCoefficient v b =
             if (abs v > 0.000001) then (String.fromFloat (roundFloat v) ++ b) else ""

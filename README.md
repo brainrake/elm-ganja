@@ -1,13 +1,11 @@
 # MOVED
 
-This package has moved: 
+This package has moved to the following places: 
 
 https://package.elm-lang.org/packages/brainrake/elm-ganja/latest/ 
 
-https://github.com/brainrake/elm-ganja/latest/
+https://github.com/brainrake/elm-ganja/
 
-<!-- 
+Please update your elm.json to use the new package.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nascetur ridiculus mus mauris vitae. Arcu dui vivamus arcu felis bibendum ut tristique et. Bibendum neque egestas congue quisque egestas diam in. Neque vitae tempus quam pellentesque nec nam aliquam sem et. Urna cursus eget nunc scelerisque. Ut sem nulla pharetra diam. Malesuada pellentesque elit eget gravida cum sociis natoque penatibus. At elementum eu facilisis sed odio. Purus gravida quis blandit turpis cursus. A arcu cursus vitae congue mauris rhoncus aenean vel elit. Interdum posuere lorem ipsum dolor sit. Bibendum enim facilisis gravida neque convallis. Et magnis dis parturient montes nascetur. Id diam vel quam elementum pulvinar etiam non quam. Turpis massa tincidunt dui ut ornare lectus sit amet. Posuere morbi leo urna molestie at. Massa placerat duis ultricies lacus sed turpis tincidunt id aliquet. Leo in vitae turpis massa sed elementum tempus egestas sed.
-
--->
+Here's some filler text to satisfy `elm publish`. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum ligula at leo rutrum consequat. Cras luctus, elit a auctor iaculis, ipsum odio malesuada dui, sit amet lacinia ligula sapien in arcu. Proin efficitur augue id tempus dictum. Integer egestas tellus mi, sit amet aliquam erat fermentum lobortis. Curabitur maximus pretium orci. Aenean nec lacinia eros. Suspendisse potenti. Donec augue est, dapibus sit amet dolor eget, imperdiet varius mauris. Donec vitae dictum ante. Vivamus eu luctus leo. Nam fringilla eros vel pulvinar facilisis. Mauris vestibulum vehicula magna quis pulvinar. 

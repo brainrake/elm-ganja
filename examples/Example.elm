@@ -1,6 +1,6 @@
-module Pga3d exposing (..)
+port module Example exposing (..)
 
-import Html
+import Platform exposing (worker)
 import Ganja.Pga3d exposing (..)
 
 
@@ -150,20 +150,26 @@ test =
 testOutput : String
 testOutput = 
     String.join ("\n")
-        [ "a point       :" ++ toString myPoint
-        , "a line        :" ++ toString myLine
-        , "a plane       :" ++ toString myPlane
-        , "a rotor       :" ++ toString myRotor
-        , "rotated line  :" ++ toString rotatedLine
-        , "rotated point :" ++ toString rotatedPoint
-        , "rotated plane :" ++ toString rotatedPlane
-        , "point on plane:" ++ toString (normalized pointOnPlane)
-        , "point on torus:" ++ toString (pointOnTorus 0 0)
+        [ "a point       : " ++ toString myPoint
+        , "a line        : " ++ toString myLine
+        , "a plane       : " ++ toString myPlane
+        , "a rotor       : " ++ toString myRotor
+        , "rotated line  : " ++ toString rotatedLine
+        , "rotated point : " ++ toString rotatedPoint
+        , "rotated plane : " ++ toString rotatedPlane
+        , "point on plane: " ++ toString (normalized pointOnPlane)
+        , "point on torus: " ++ toString (pointOnTorus 0 0)
         , toString (subs e0 1)
         , toString (ssub 1 e0)
         ]
 
 
-main : Html.Html msg
+port output : String -> Cmd msg
+
+main : Program () () ()
 main = 
-    Html.pre [] [ Html.text testOutput ]
+    worker
+        { init = \_ -> ( (), output testOutput )
+        , update = \_ _ -> ( (), Cmd.none )
+        , subscriptions = \_ -> Sub.none
+        }

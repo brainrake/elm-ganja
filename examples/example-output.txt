@@ -1,0 +1,11 @@
+a point       : 1e032 + 1e123
+a line        : -1e23
+a plane       : -3e0 + 2e1 + 1e3
+a rotor       : 0.7071068 + 0.7071068e12
+rotated line  : 1e31
+rotated point : -1e013 + 1e123
+rotated plane : -3e0 + -2e2 + 1e3
+point on plane: 0.2e021 + 1.4e032 + 1e123
+point on torus: 0.85e032 + 1e123
+-1 + 1e0
+1 + -1e0
